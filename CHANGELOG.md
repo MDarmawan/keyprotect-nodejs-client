@@ -1,3 +1,10 @@
+## [0.1.6](https://github.com/IBM/keyprotect-nodejs-client/compare/v0.1.5...v0.1.6) (2023-02-07)
+
+
+### Bug Fixes
+
+* **build:** upgraded @ibm-cloud/platform-services ([#33](https://github.com/IBM/keyprotect-nodejs-client/issues/33)) ([7d8d78f](https://github.com/IBM/keyprotect-nodejs-client/commit/7d8d78fe3c01899a3816a0725dbe2b1ff56d30a3))
+
 ## [0.1.5](https://github.com/IBM/keyprotect-nodejs-client/compare/v0.1.4...v0.1.5) (2022-10-19)
 
 
