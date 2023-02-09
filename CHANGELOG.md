@@ -1,3 +1,10 @@
+## [0.1.7](https://github.com/IBM/keyprotect-nodejs-client/compare/v0.1.6...v0.1.7) (2023-02-09)
+
+
+### Bug Fixes
+
+* **build:** node version fix in README ([#34](https://github.com/IBM/keyprotect-nodejs-client/issues/34)) ([c81b82e](https://github.com/IBM/keyprotect-nodejs-client/commit/c81b82e9694ba3af66ad34a895500e8121140fad))
+
 ## [0.1.6](https://github.com/IBM/keyprotect-nodejs-client/compare/v0.1.5...v0.1.6) (2023-02-07)
 
 
