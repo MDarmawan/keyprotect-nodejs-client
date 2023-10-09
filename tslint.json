@@ -1,6 +1,6 @@
 {
-  "extends": ["tslint:recommended", "tslint-eslint-rules", "tslint-config-prettier"],
-  "rules": {
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": { 
     "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
     "interface-name": [true, "never-prefix"],
     "no-string-literal": false,
@@ -19,7 +19,8 @@
     "no-console": {
       "severity": "warning",
       "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
-    }
+    },
+    "max-classes-per-file": "warn"
   },
   "cliOptions": {
     "exclude": ["jsdoc", "doc", "coverage", "dist", "node_modules", "jsdoc"]
