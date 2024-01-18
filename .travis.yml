@@ -1,8 +1,8 @@
 language: node_js
 
 node_js:
+- 14
 - 16
-- 18
 
 cache:
   npm: false
@@ -27,5 +27,5 @@ deploy:
   skip_cleanup: true
   script: npx semantic-release
   on:
-    node: 16
+    node: 14
     branch: master
