@@ -41,7 +41,7 @@ import { getSdkHeaders } from '../lib/common';
  * keys, you can benefit from knowing that your keys are secured by cloud-based FIPS 140-2 Level 3 hardware security
  * modules (HSMs) that protect against theft of information. You can use the Key Protect API to store, generate, and
  * retrieve your key material. Keys within the service can protect any type of data in your symmetric key-based
- * encryption solution.
+ * encryption solution. 
  *
  * API Version: 2.0.0
  */
