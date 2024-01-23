@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -778,6 +778,842 @@ describe('IbmKeyProtectApiV2', () => {
         let err;
         try {
           await ibmKeyProtectApiService.getImportToken();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getKmipAdapters', () => {
+    describe('positive tests', () => {
+      function __getKmipAdaptersTest() {
+        // Construct the params object for operation getKmipAdapters
+        const bluemixInstance = 'testString';
+        const correlationId = 'testString';
+        const limit = 100;
+        const offset = 0;
+        const totalCount = true;
+        const getKmipAdaptersParams = {
+          bluemixInstance,
+          correlationId,
+          limit,
+          offset,
+          totalCount,
+        };
+
+        const getKmipAdaptersResult =
+          ibmKeyProtectApiService.getKmipAdapters(getKmipAdaptersParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getKmipAdaptersResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'Bluemix-Instance', bluemixInstance);
+        checkUserHeader(createRequestMock, 'Correlation-Id', correlationId);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.totalCount).toEqual(totalCount);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getKmipAdaptersTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.enableRetries();
+        __getKmipAdaptersTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.disableRetries();
+        __getKmipAdaptersTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const bluemixInstance = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getKmipAdaptersParams = {
+          bluemixInstance,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmKeyProtectApiService.getKmipAdapters(getKmipAdaptersParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.getKmipAdapters({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.getKmipAdapters();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('createKmipAdapter', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // CollectionMetadata
+      const collectionMetadataModel = {
+        collectionType: 'application/vnd.ibm.kms.kmip_adapter+json',
+        collectionTotal: 1,
+      };
+
+      // KMIPProfileDataBodyKMIPProfileDataNative
+      const kmipProfileDataBodyModel = {
+        crk_id: 'feddecaf-0000-0000-0000-1234567890ab',
+        target_key_ring_id: 'testString',
+      };
+
+      // CreateKMIPAdapterRequestBodyResourcesItem
+      const createKmipAdapterRequestBodyResourcesItemModel = {
+        name: 'kmip-adapter-name',
+        description: 'kmip adapter description',
+        profile: 'native_1.0',
+        profile_data: kmipProfileDataBodyModel,
+      };
+
+      function __createKmipAdapterTest() {
+        // Construct the params object for operation createKmipAdapter
+        const bluemixInstance = 'testString';
+        const metadata = collectionMetadataModel;
+        const resources = [createKmipAdapterRequestBodyResourcesItemModel];
+        const correlationId = 'testString';
+        const createKmipAdapterParams = {
+          bluemixInstance,
+          metadata,
+          resources,
+          correlationId,
+        };
+
+        const createKmipAdapterResult =
+          ibmKeyProtectApiService.createKmipAdapter(createKmipAdapterParams);
+
+        // all methods should return a Promise
+        expectToBePromise(createKmipAdapterResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'Bluemix-Instance', bluemixInstance);
+        checkUserHeader(createRequestMock, 'Correlation-Id', correlationId);
+        expect(mockRequestOptions.body.metadata).toEqual(metadata);
+        expect(mockRequestOptions.body.resources).toEqual(resources);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createKmipAdapterTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.enableRetries();
+        __createKmipAdapterTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.disableRetries();
+        __createKmipAdapterTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const bluemixInstance = 'testString';
+        const metadata = collectionMetadataModel;
+        const resources = [createKmipAdapterRequestBodyResourcesItemModel];
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createKmipAdapterParams = {
+          bluemixInstance,
+          metadata,
+          resources,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmKeyProtectApiService.createKmipAdapter(createKmipAdapterParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.createKmipAdapter({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.createKmipAdapter();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getKmipAdapter', () => {
+    describe('positive tests', () => {
+      function __getKmipAdapterTest() {
+        // Construct the params object for operation getKmipAdapter
+        const bluemixInstance = 'testString';
+        const id = 'testString';
+        const correlationId = 'testString';
+        const getKmipAdapterParams = {
+          bluemixInstance,
+          id,
+          correlationId,
+        };
+
+        const getKmipAdapterResult = ibmKeyProtectApiService.getKmipAdapter(getKmipAdapterParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getKmipAdapterResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters/{id}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'Bluemix-Instance', bluemixInstance);
+        checkUserHeader(createRequestMock, 'Correlation-Id', correlationId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getKmipAdapterTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.enableRetries();
+        __getKmipAdapterTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.disableRetries();
+        __getKmipAdapterTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const bluemixInstance = 'testString';
+        const id = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getKmipAdapterParams = {
+          bluemixInstance,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmKeyProtectApiService.getKmipAdapter(getKmipAdapterParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.getKmipAdapter({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.getKmipAdapter();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('deleteKmipAdapter', () => {
+    describe('positive tests', () => {
+      function __deleteKmipAdapterTest() {
+        // Construct the params object for operation deleteKmipAdapter
+        const bluemixInstance = 'testString';
+        const id = 'testString';
+        const correlationId = 'testString';
+        const deleteKmipAdapterParams = {
+          bluemixInstance,
+          id,
+          correlationId,
+        };
+
+        const deleteKmipAdapterResult =
+          ibmKeyProtectApiService.deleteKmipAdapter(deleteKmipAdapterParams);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteKmipAdapterResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters/{id}', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'Bluemix-Instance', bluemixInstance);
+        checkUserHeader(createRequestMock, 'Correlation-Id', correlationId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteKmipAdapterTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.enableRetries();
+        __deleteKmipAdapterTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.disableRetries();
+        __deleteKmipAdapterTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const bluemixInstance = 'testString';
+        const id = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteKmipAdapterParams = {
+          bluemixInstance,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmKeyProtectApiService.deleteKmipAdapter(deleteKmipAdapterParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.deleteKmipAdapter({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.deleteKmipAdapter();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getKmipClientCertificates', () => {
+    describe('positive tests', () => {
+      function __getKmipClientCertificatesTest() {
+        // Construct the params object for operation getKmipClientCertificates
+        const bluemixInstance = 'testString';
+        const adapterId = 'testString';
+        const correlationId = 'testString';
+        const limit = 100;
+        const offset = 0;
+        const totalCount = true;
+        const getKmipClientCertificatesParams = {
+          bluemixInstance,
+          adapterId,
+          correlationId,
+          limit,
+          offset,
+          totalCount,
+        };
+
+        const getKmipClientCertificatesResult = ibmKeyProtectApiService.getKmipClientCertificates(
+          getKmipClientCertificatesParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(getKmipClientCertificatesResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/certificates',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'Bluemix-Instance', bluemixInstance);
+        checkUserHeader(createRequestMock, 'Correlation-Id', correlationId);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.totalCount).toEqual(totalCount);
+        expect(mockRequestOptions.path.adapter_id).toEqual(adapterId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getKmipClientCertificatesTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.enableRetries();
+        __getKmipClientCertificatesTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.disableRetries();
+        __getKmipClientCertificatesTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const bluemixInstance = 'testString';
+        const adapterId = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getKmipClientCertificatesParams = {
+          bluemixInstance,
+          adapterId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmKeyProtectApiService.getKmipClientCertificates(getKmipClientCertificatesParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.getKmipClientCertificates({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.getKmipClientCertificates();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('addKmipClientCertificate', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // CollectionMetadata
+      const collectionMetadataModel = {
+        collectionType: 'application/vnd.ibm.kms.kmip_adapter_certificate+json',
+        collectionTotal: 1,
+      };
+
+      // CreateKMIPClientCertificateObject
+      const createKmipClientCertificateObjectModel = {
+        certificate: 'testString',
+        name: 'testString',
+      };
+
+      function __addKmipClientCertificateTest() {
+        // Construct the params object for operation addKmipClientCertificate
+        const bluemixInstance = 'testString';
+        const adapterId = 'testString';
+        const metadata = collectionMetadataModel;
+        const resources = [createKmipClientCertificateObjectModel];
+        const correlationId = 'testString';
+        const addKmipClientCertificateParams = {
+          bluemixInstance,
+          adapterId,
+          metadata,
+          resources,
+          correlationId,
+        };
+
+        const addKmipClientCertificateResult = ibmKeyProtectApiService.addKmipClientCertificate(
+          addKmipClientCertificateParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(addKmipClientCertificateResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/certificates',
+          'POST'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'Bluemix-Instance', bluemixInstance);
+        checkUserHeader(createRequestMock, 'Correlation-Id', correlationId);
+        expect(mockRequestOptions.body.metadata).toEqual(metadata);
+        expect(mockRequestOptions.body.resources).toEqual(resources);
+        expect(mockRequestOptions.path.adapter_id).toEqual(adapterId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __addKmipClientCertificateTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.enableRetries();
+        __addKmipClientCertificateTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.disableRetries();
+        __addKmipClientCertificateTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const bluemixInstance = 'testString';
+        const adapterId = 'testString';
+        const metadata = collectionMetadataModel;
+        const resources = [createKmipClientCertificateObjectModel];
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const addKmipClientCertificateParams = {
+          bluemixInstance,
+          adapterId,
+          metadata,
+          resources,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmKeyProtectApiService.addKmipClientCertificate(addKmipClientCertificateParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.addKmipClientCertificate({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.addKmipClientCertificate();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getKmipClientCertificate', () => {
+    describe('positive tests', () => {
+      function __getKmipClientCertificateTest() {
+        // Construct the params object for operation getKmipClientCertificate
+        const bluemixInstance = 'testString';
+        const adapterId = 'testString';
+        const id = 'testString';
+        const correlationId = 'testString';
+        const getKmipClientCertificateParams = {
+          bluemixInstance,
+          adapterId,
+          id,
+          correlationId,
+        };
+
+        const getKmipClientCertificateResult = ibmKeyProtectApiService.getKmipClientCertificate(
+          getKmipClientCertificateParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(getKmipClientCertificateResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/certificates/{id}',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'Bluemix-Instance', bluemixInstance);
+        checkUserHeader(createRequestMock, 'Correlation-Id', correlationId);
+        expect(mockRequestOptions.path.adapter_id).toEqual(adapterId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getKmipClientCertificateTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.enableRetries();
+        __getKmipClientCertificateTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.disableRetries();
+        __getKmipClientCertificateTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const bluemixInstance = 'testString';
+        const adapterId = 'testString';
+        const id = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getKmipClientCertificateParams = {
+          bluemixInstance,
+          adapterId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmKeyProtectApiService.getKmipClientCertificate(getKmipClientCertificateParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.getKmipClientCertificate({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.getKmipClientCertificate();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('deleteKmipClientCertificate', () => {
+    describe('positive tests', () => {
+      function __deleteKmipClientCertificateTest() {
+        // Construct the params object for operation deleteKmipClientCertificate
+        const bluemixInstance = 'testString';
+        const adapterId = 'testString';
+        const id = 'testString';
+        const correlationId = 'testString';
+        const deleteKmipClientCertificateParams = {
+          bluemixInstance,
+          adapterId,
+          id,
+          correlationId,
+        };
+
+        const deleteKmipClientCertificateResult =
+          ibmKeyProtectApiService.deleteKmipClientCertificate(deleteKmipClientCertificateParams);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteKmipClientCertificateResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/certificates/{id}',
+          'DELETE'
+        );
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'Bluemix-Instance', bluemixInstance);
+        checkUserHeader(createRequestMock, 'Correlation-Id', correlationId);
+        expect(mockRequestOptions.path.adapter_id).toEqual(adapterId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteKmipClientCertificateTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.enableRetries();
+        __deleteKmipClientCertificateTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmKeyProtectApiService.disableRetries();
+        __deleteKmipClientCertificateTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const bluemixInstance = 'testString';
+        const adapterId = 'testString';
+        const id = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteKmipClientCertificateParams = {
+          bluemixInstance,
+          adapterId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmKeyProtectApiService.deleteKmipClientCertificate(deleteKmipClientCertificateParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.deleteKmipClientCertificate({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmKeyProtectApiService.deleteKmipClientCertificate();
         } catch (e) {
           err = e;
         }

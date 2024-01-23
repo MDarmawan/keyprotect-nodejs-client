@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * IBM OpenAPI SDK Code Generator Version: 3.78.0-67aec9b7-20230818-174940
  */
 
-/* eslint max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 /* eslint-disable no-await-in-loop */
 
 import * as extend from 'extend';
@@ -519,6 +519,485 @@ class IbmKeyProtectApiV2 extends BaseService {
             'Bluemix-Instance': _params.bluemixInstance,
             'Correlation-Id': _params.correlationId,
             'X-Kms-Key-Ring': _params.xKmsKeyRing,
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+  /*************************
+   * kMIPAdapters
+   ************************/
+
+  /**
+   * List KMIP Adapters.
+   *
+   * List all the KMIP Adapters in the kms instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
+   * instance.
+   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
+   * @param {number} [params.limit] - The number of KMIP Adapters to retrieve. By default, `GET /kmip_adapters` returns
+   * the first 100 KMIP Adapters. To retrieve a different set of KMIP adapters, use `limit` with `offset` to page
+   * through your available resources. The maximum value for `limit` is 5000.
+   * **Usage:** If you have 20 KMIP Adapters, and you want to retrieve only the first 5 adapters, use
+   * `../kmip_adapters?limit=5`.
+   * @param {number} [params.offset] - The number of KMIP adapters to skip. By specifying `offset`, you retrieve a
+   * subset of KMIP adapters that starts with the `offset` value. Use `offset` with `limit` to page through your
+   * available resources.
+   * **Usage:** If you have 20 KMIP Adapters, and you want to retrieve adapters 11 through 15, use
+   * `../kmip_adapters?offset=10&limit=5`.
+   * @param {boolean} [params.totalCount] - If set to `true`, returns `totalCount` in the response metadata for use with
+   * pagination. The `totalCount` value returned specifies the total number of kmip adapters that match the request,
+   * disregarding limit and offset. The default is set to false.
+   * **Usage:** To return the `totalCount` value for use with pagination, use `../kmip_adapters?totalCount=true`.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPAdaptersWithTotalCount>>}
+   */
+  public getKmipAdapters(
+    params: IbmKeyProtectApiV2.GetKmipAdaptersParams
+  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPAdaptersWithTotalCount>> {
+    const _params = { ...params };
+    const _requiredParams = ['bluemixInstance'];
+    const _validParams = ['bluemixInstance', 'correlationId', 'limit', 'offset', 'totalCount', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'limit': _params.limit,
+      'offset': _params.offset,
+      'totalCount': _params.totalCount,
+    };
+
+    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getKmipAdapters');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/kmip_adapters',
+        method: 'GET',
+        qs: query,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Bluemix-Instance': _params.bluemixInstance,
+            'Correlation-Id': _params.correlationId,
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Create a KMIP Adapter.
+   *
+   * Create a KMIP adapter in a kms instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
+   * instance.
+   * @param {CollectionMetadata} params.metadata - The metadata that describes the resource array.
+   * @param {CreateKMIPAdapterRequestBodyResourcesItem[]} params.resources - A collection of resources.
+   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPAdapters>>}
+   */
+  public createKmipAdapter(
+    params: IbmKeyProtectApiV2.CreateKmipAdapterParams
+  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPAdapters>> {
+    const _params = { ...params };
+    const _requiredParams = ['bluemixInstance', 'metadata', 'resources'];
+    const _validParams = ['bluemixInstance', 'metadata', 'resources', 'correlationId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'metadata': _params.metadata,
+      'resources': _params.resources,
+    };
+
+    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'createKmipAdapter');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/kmip_adapters',
+        method: 'POST',
+        body,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Bluemix-Instance': _params.bluemixInstance,
+            'Correlation-Id': _params.correlationId,
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Retrieve a KMIP Adapter.
+   *
+   * Retrieve a KMIP adapter using its ID / name and get its full details.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
+   * instance.
+   * @param {string} params.id - The name or v4 UUID of the KMIP Adapter that uniquely identifies it.
+   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPAdapters>>}
+   */
+  public getKmipAdapter(
+    params: IbmKeyProtectApiV2.GetKmipAdapterParams
+  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPAdapters>> {
+    const _params = { ...params };
+    const _requiredParams = ['bluemixInstance', 'id'];
+    const _validParams = ['bluemixInstance', 'id', 'correlationId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getKmipAdapter');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/kmip_adapters/{id}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Bluemix-Instance': _params.bluemixInstance,
+            'Correlation-Id': _params.correlationId,
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Delete a KMIP Adapter.
+   *
+   * Delete a KMIP Adapter with the given ID / name.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
+   * instance.
+   * @param {string} params.id - The name or v4 UUID of the KMIP Adapter that uniquely identifies it.
+   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.EmptyObject>>}
+   */
+  public deleteKmipAdapter(
+    params: IbmKeyProtectApiV2.DeleteKmipAdapterParams
+  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['bluemixInstance', 'id'];
+    const _validParams = ['bluemixInstance', 'id', 'correlationId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteKmipAdapter');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/kmip_adapters/{id}',
+        method: 'DELETE',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Bluemix-Instance': _params.bluemixInstance,
+            'Correlation-Id': _params.correlationId,
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get all client certificates.
+   *
+   * Get all client certificates in a KMIP Adapter.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
+   * instance.
+   * @param {string} params.adapterId - The name or v4 UUID of the KMIP Adapter that uniquely identifies it.
+   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
+   * @param {number} [params.limit] - The number of KMIP Certificates to retrieve. By default, `GET
+   * /kmip_adapters/{id}/certificates` returns the first 100 KMIP Certificates. To retrieve a different set of
+   * certificates, use `limit` with `offset` to page through your available resources. The maximum value for `limit` is
+   * 200.
+   * **Usage:** If you have 20 KMIP certificates associated with your KMIP adapter, and you want to retrieve only the
+   * first 5 certificates, use `../kmip_adapters/{id}/certificates?limit=5`.
+   * @param {number} [params.offset] - The number of KMIP Adapters to skip. By specifying `offset`, you retrieve a
+   * subset of certificates that starts with the `offset` value. Use `offset` with `limit` to page through your
+   * available resources.
+   * **Usage:** If you have 20 certificates associated with your KMIP adapter, and you want to retrieve certificates 11
+   * through 15, use `../kmip_adapters/{id}/certificates?offset=10&limit=5`.
+   * @param {boolean} [params.totalCount] - If set to `true`, returns `totalCount` in the response metadata for use with
+   * pagination. The `totalCount` value returned specifies the total number of kmip adapters that match the request,
+   * disregarding limit and offset. The default is set to false.
+   * **Usage:** To return the `totalCount` value for use with pagination, use
+   * `../kmip_adapters/{id}/certificates?totalCount=true`.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPPartialClientCertificatesWithTotalCount>>}
+   */
+  public getKmipClientCertificates(
+    params: IbmKeyProtectApiV2.GetKmipClientCertificatesParams
+  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPPartialClientCertificatesWithTotalCount>> {
+    const _params = { ...params };
+    const _requiredParams = ['bluemixInstance', 'adapterId'];
+    const _validParams = ['bluemixInstance', 'adapterId', 'correlationId', 'limit', 'offset', 'totalCount', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'limit': _params.limit,
+      'offset': _params.offset,
+      'totalCount': _params.totalCount,
+    };
+
+    const path = {
+      'adapter_id': _params.adapterId,
+    };
+
+    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getKmipClientCertificates');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/kmip_adapters/{adapter_id}/certificates',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Bluemix-Instance': _params.bluemixInstance,
+            'Correlation-Id': _params.correlationId,
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Add a client certificate to a KMIP Adapter.
+   *
+   * Add a Certificate to a KMIP Adapter. A maximum of 200 certificates can be associated with a KMIP Adapter at a time.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
+   * instance.
+   * @param {string} params.adapterId - The name or v4 UUID of the KMIP Adapter that uniquely identifies it.
+   * @param {CollectionMetadata} params.metadata - The metadata that describes the resource array.
+   * @param {CreateKMIPClientCertificateObject[]} params.resources - A collection of resources.
+   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPClientCertificates>>}
+   */
+  public addKmipClientCertificate(
+    params: IbmKeyProtectApiV2.AddKmipClientCertificateParams
+  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPClientCertificates>> {
+    const _params = { ...params };
+    const _requiredParams = ['bluemixInstance', 'adapterId', 'metadata', 'resources'];
+    const _validParams = ['bluemixInstance', 'adapterId', 'metadata', 'resources', 'correlationId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'metadata': _params.metadata,
+      'resources': _params.resources,
+    };
+
+    const path = {
+      'adapter_id': _params.adapterId,
+    };
+
+    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'addKmipClientCertificate');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/kmip_adapters/{adapter_id}/certificates',
+        method: 'POST',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Bluemix-Instance': _params.bluemixInstance,
+            'Correlation-Id': _params.correlationId,
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Retrieve a client certificate from a KMIP Adapter.
+   *
+   * Retrieve a client certificate from a KMIP Adapter using its id / name.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
+   * instance.
+   * @param {string} params.adapterId - The name or v4 UUID of the KMIP Adapter that uniquely identifies it.
+   * @param {string} params.id - The name or v4 UUID of the KMIP Adapter Client Certificate that uniquely identifies it.
+   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPClientCertificates>>}
+   */
+  public getKmipClientCertificate(
+    params: IbmKeyProtectApiV2.GetKmipClientCertificateParams
+  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPClientCertificates>> {
+    const _params = { ...params };
+    const _requiredParams = ['bluemixInstance', 'adapterId', 'id'];
+    const _validParams = ['bluemixInstance', 'adapterId', 'id', 'correlationId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'adapter_id': _params.adapterId,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getKmipClientCertificate');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/kmip_adapters/{adapter_id}/certificates/{id}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Bluemix-Instance': _params.bluemixInstance,
+            'Correlation-Id': _params.correlationId,
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Delete a client certificate from a KMIP Adapter.
+   *
+   * Remove a client certificate from a KMIP Adapter given its id / name.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
+   * instance.
+   * @param {string} params.adapterId - The name or v4 UUID of the KMIP Adapter that uniquely identifies it.
+   * @param {string} params.id - The name or v4 UUID of the KMIP Adapter Client Certificate that uniquely identifies it.
+   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.EmptyObject>>}
+   */
+  public deleteKmipClientCertificate(
+    params: IbmKeyProtectApiV2.DeleteKmipClientCertificateParams
+  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['bluemixInstance', 'adapterId', 'id'];
+    const _validParams = ['bluemixInstance', 'adapterId', 'id', 'correlationId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'adapter_id': _params.adapterId,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteKmipClientCertificate');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/kmip_adapters/{adapter_id}/certificates/{id}',
+        method: 'DELETE',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Bluemix-Instance': _params.bluemixInstance,
+            'Correlation-Id': _params.correlationId,
           },
           _params.headers
         ),
@@ -3620,6 +4099,141 @@ namespace IbmKeyProtectApiV2 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `getKmipAdapters` operation. */
+  export interface GetKmipAdaptersParams {
+    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
+    bluemixInstance: string;
+    /** The v4 UUID used to correlate and track transactions. */
+    correlationId?: string;
+    /** The number of KMIP Adapters to retrieve. By default, `GET /kmip_adapters` returns the first 100 KMIP
+     *  Adapters. To retrieve a different set of KMIP adapters, use `limit` with `offset` to page through your available
+     *  resources. The maximum value for `limit` is 5000.
+     *  **Usage:** If you have 20 KMIP Adapters, and you want to retrieve only the first 5 adapters, use
+     *  `../kmip_adapters?limit=5`.
+     */
+    limit?: number;
+    /** The number of KMIP adapters to skip. By specifying `offset`, you retrieve a subset of KMIP adapters that
+     *  starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
+     *  **Usage:** If you have 20 KMIP Adapters, and you want to retrieve adapters 11 through 15, use
+     *  `../kmip_adapters?offset=10&limit=5`.
+     */
+    offset?: number;
+    /** If set to `true`, returns `totalCount` in the response metadata for use with pagination. The `totalCount`
+     *  value returned specifies the total number of kmip adapters that match the request, disregarding limit and
+     *  offset. The default is set to false.
+     *  **Usage:** To return the `totalCount` value for use with pagination, use `../kmip_adapters?totalCount=true`.
+     */
+    totalCount?: boolean;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `createKmipAdapter` operation. */
+  export interface CreateKmipAdapterParams {
+    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
+    bluemixInstance: string;
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: CreateKMIPAdapterRequestBodyResourcesItem[];
+    /** The v4 UUID used to correlate and track transactions. */
+    correlationId?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getKmipAdapter` operation. */
+  export interface GetKmipAdapterParams {
+    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
+    bluemixInstance: string;
+    /** The name or v4 UUID of the KMIP Adapter that uniquely identifies it. */
+    id: string;
+    /** The v4 UUID used to correlate and track transactions. */
+    correlationId?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `deleteKmipAdapter` operation. */
+  export interface DeleteKmipAdapterParams {
+    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
+    bluemixInstance: string;
+    /** The name or v4 UUID of the KMIP Adapter that uniquely identifies it. */
+    id: string;
+    /** The v4 UUID used to correlate and track transactions. */
+    correlationId?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getKmipClientCertificates` operation. */
+  export interface GetKmipClientCertificatesParams {
+    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
+    bluemixInstance: string;
+    /** The name or v4 UUID of the KMIP Adapter that uniquely identifies it. */
+    adapterId: string;
+    /** The v4 UUID used to correlate and track transactions. */
+    correlationId?: string;
+    /** The number of KMIP Certificates to retrieve. By default, `GET /kmip_adapters/{id}/certificates` returns the
+     *  first 100 KMIP Certificates. To retrieve a different set of certificates, use `limit` with `offset` to page
+     *  through your available resources. The maximum value for `limit` is 200.
+     *  **Usage:** If you have 20 KMIP certificates associated with your KMIP adapter, and you want to retrieve only the
+     *  first 5 certificates, use `../kmip_adapters/{id}/certificates?limit=5`.
+     */
+    limit?: number;
+    /** The number of KMIP Adapters to skip. By specifying `offset`, you retrieve a subset of certificates that
+     *  starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
+     *  **Usage:** If you have 20 certificates associated with your KMIP adapter, and you want to retrieve certificates
+     *  11 through 15, use `../kmip_adapters/{id}/certificates?offset=10&limit=5`.
+     */
+    offset?: number;
+    /** If set to `true`, returns `totalCount` in the response metadata for use with pagination. The `totalCount`
+     *  value returned specifies the total number of kmip adapters that match the request, disregarding limit and
+     *  offset. The default is set to false.
+     *  **Usage:** To return the `totalCount` value for use with pagination, use
+     *  `../kmip_adapters/{id}/certificates?totalCount=true`.
+     */
+    totalCount?: boolean;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `addKmipClientCertificate` operation. */
+  export interface AddKmipClientCertificateParams {
+    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
+    bluemixInstance: string;
+    /** The name or v4 UUID of the KMIP Adapter that uniquely identifies it. */
+    adapterId: string;
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: CreateKMIPClientCertificateObject[];
+    /** The v4 UUID used to correlate and track transactions. */
+    correlationId?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getKmipClientCertificate` operation. */
+  export interface GetKmipClientCertificateParams {
+    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
+    bluemixInstance: string;
+    /** The name or v4 UUID of the KMIP Adapter that uniquely identifies it. */
+    adapterId: string;
+    /** The name or v4 UUID of the KMIP Adapter Client Certificate that uniquely identifies it. */
+    id: string;
+    /** The v4 UUID used to correlate and track transactions. */
+    correlationId?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `deleteKmipClientCertificate` operation. */
+  export interface DeleteKmipClientCertificateParams {
+    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
+    bluemixInstance: string;
+    /** The name or v4 UUID of the KMIP Adapter that uniquely identifies it. */
+    adapterId: string;
+    /** The name or v4 UUID of the KMIP Adapter Client Certificate that uniquely identifies it. */
+    id: string;
+    /** The v4 UUID used to correlate and track transactions. */
+    correlationId?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
   /** Parameters for the `wrapKey` operation. */
   export interface WrapKeyParams {
     /** The v4 UUID or alias that uniquely identifies the key. */
@@ -4989,6 +5603,44 @@ namespace IbmKeyProtectApiV2 {
     totalCount?: number;
   }
 
+  /** CreateKMIPAdapterRequestBodyResourcesItem. */
+  export interface CreateKMIPAdapterRequestBodyResourcesItem {
+    /** A human-readable name of the KMIP adapter unique within the kms instance. If one is not specified, one will
+     *  be autogenerated of the format `kmip_adapter_<timestamp>_<random_string>`. To protect your privacy do not use
+     *  personal data, such as your name or location, as a name for your KMIP adapter. The name must be  alphanumeric
+     *  and cannot contain spaces or special characters other than `-` or `_`. The name cannot be a UUID and must not be
+     *  a Key Protect reserved name: `allowed_ip`, `certificate`, `certificates`,`key`,`keys`, `metadata`, `policy`,
+     *  `policies`, `registration`, `registrations`, `ring`, `rings`, `rotate`, `wrap`, `unwrap`, `rewrap`, `version`,
+     *  `versions`.
+     */
+    name?: string;
+    /** The optional description of the KMIP adapter. The maximum length is 240 characters. To protect your privacy,
+     *  do not use personal data, such as your name or location, as a description for your KMIP adapter.
+     */
+    description?: string;
+    /** The profile of KMIP adapter to be created. */
+    profile?: string;
+    /** The data specific to the KMIP Adapter profile. This is a required field for type `native_1.0`. */
+    profile_data?: KMIPProfileDataBody;
+  }
+
+  /** CreateKMIPClientCertificateObject. */
+  export interface CreateKMIPClientCertificateObject {
+    /** The client certificate to be associated with the KMIP Adapter. It should explicitly have the BEGIN
+     *  CERTIFICATE and END CERTIFICATE tags.
+     */
+    certificate: string;
+    /** A human-readable name that uniquely identifies a certificate within the given adapter. If one is  not
+     *  specified, one will be autogenerated of the format `kmip_certificate_<timestamp>_<random_string>`. To protect
+     *  your privacy do not use personal data, such as your name or location, as a name for your client certificate. The
+     *  name must be  alphanumeric and cannot contain spaces or special characters other than `-` or `_`. The name
+     *  cannot be a UUID and must not be a Key Protect reserved name: `allowed_ip`, `key`,`keys`, `metadata`, `policy`,
+     *  `policies`, `registration`, `registrations`, `ring`, `rings`, `rotate`, `wrap`, `unwrap`, `rewrap`, `version`,
+     *  `versions`.
+     */
+    name?: string;
+  }
+
   /** The schema for the resources object in the body of a create Migration Intent. */
   export interface CreateMigrationIntentObject {
     /** The CRN of the Customer Root Key (CRK) which is the target of the migration. */
@@ -5580,6 +6232,97 @@ namespace IbmKeyProtectApiV2 {
     attributes?: RotationProperties;
   }
 
+  /** Properties applicable to all KMIP adapter resources. */
+  export interface KMIPAdapter {
+    /** The v4 UUID that uniquely identifies this KMIP adapter. */
+    id?: string;
+    /** A human-readable name of the KMIP adapter unique within the kms instance. If one is not specified, one will
+     *  be autogenerated of the format `kmip_adapter_<timestamp>_<random_string>`. To protect your privacy do not use
+     *  personal data, such as your name or location, as a name for your KMIP adapter. The name must be  alphanumeric
+     *  and cannot contain spaces or special characters other than `-` or `_`. The name cannot be a UUID and must not be
+     *  a Key Protect reserved name: `allowed_ip`, `certificate`, `certificates`,`key`,`keys`, `metadata`, `policy`,
+     *  `policies`, `registration`, `registrations`, `ring`, `rings`, `rotate`, `wrap`, `unwrap`, `rewrap`, `version`,
+     *  `versions`.
+     */
+    name?: string;
+    /** The date the KMIP adapter was created. The date format follows RFC 3339. */
+    created_at?: string;
+    /** The unique identifier of the user that created the KMIP adapter. */
+    created_by?: string;
+    /** The date the KMIP adapter was last modified, either by creation or by modification  of adapter subresources.
+     *  The date format follows RFC 3339.
+     */
+    updated_at?: string;
+    /** The unique identifier of the user that updated the KMIP adapter. */
+    updated_by?: string;
+    /** The profile of KMIP adapter to be created. */
+    profile?: string;
+    /** The optional description of the KMIP adapter. The maximum length is 240 characters. To protect your privacy,
+     *  do not use personal data, such as your name or location, as a description for your KMIP adapter.
+     */
+    description?: string;
+    /** Properties that must be specified to profile_data when it is of native_1.0 KMIP adapter resource. */
+    profile_data?: KMIPProfileDataNative;
+  }
+
+  /** Properties of a client certificate. */
+  export interface KMIPClientCertificate {
+    /** A human-readable name that uniquely identifies a certificate within the given adapter. If one is  not
+     *  specified, one will be autogenerated of the format `kmip_certificate_<timestamp>_<random_string>`. To protect
+     *  your privacy do not use personal data, such as your name or location, as a name for your client certificate. The
+     *  name must be  alphanumeric and cannot contain spaces or special characters other than `-` or `_`. The name
+     *  cannot be a UUID and must not be a Key Protect reserved name: `allowed_ip`, `key`,`keys`, `metadata`, `policy`,
+     *  `policies`, `registration`, `registrations`, `ring`, `rings`, `rotate`, `wrap`, `unwrap`, `rewrap`, `version`,
+     *  `versions`.
+     */
+    name?: string;
+    /** The v4 UUID that uniquely identifies this certificate resource. */
+    id?: string;
+    /** The date this certificate resource was created on the KMIP Adapter. The date format follows RFC 3339. */
+    created_at?: string;
+    /** The IAM id that created the certificate resource. */
+    created_by?: string;
+    /** The client certificate to be associated with the KMIP Adapter. It should explicitly have the BEGIN
+     *  CERTIFICATE and END CERTIFICATE tags.
+     */
+    certificate?: string;
+  }
+
+  /** Partial properties of a client certificate. */
+  export interface KMIPClientPartialCertificate {
+    /** A human-readable name that uniquely identifies a certificate within the given adapter. If one is  not
+     *  specified, one will be autogenerated of the format `kmip_certificate_<timestamp>_<random_string>`. To protect
+     *  your privacy do not use personal data, such as your name or location, as a name for your client certificate. The
+     *  name must be  alphanumeric and cannot contain spaces or special characters other than `-` or `_`. The name
+     *  cannot be a UUID and must not be a Key Protect reserved name: `allowed_ip`, `key`,`keys`, `metadata`, `policy`,
+     *  `policies`, `registration`, `registrations`, `ring`, `rings`, `rotate`, `wrap`, `unwrap`, `rewrap`, `version`,
+     *  `versions`.
+     */
+    name?: string;
+    /** The v4 UUID that uniquely identifies this certificate resource. */
+    id?: string;
+    /** The date this certificate resource was created on the KMIP Adapter. The date format follows RFC 3339. */
+    created_at?: string;
+    /** The IAM id that created the certificate resource. */
+    created_by?: string;
+  }
+
+  /** The data specific to the KMIP Adapter profile. This is a required field for type `native_1.0`. */
+  export interface KMIPProfileDataBody {
+  }
+
+  /** Properties that must be specified to profile_data when it is of native_1.0 KMIP adapter resource. */
+  export interface KMIPProfileDataNative {
+    /** An ID that identifies the Customer Root Key(CRK) to be used. This CRK must exist in the same kms instance as
+     *  the adapter.
+     */
+    crk_id: string;
+    /** The unique identifier of the key ring to be used for creating standard keys in the kms instance. When this
+     *  is not specified, the `default` key ring will be used.
+     */
+    target_key_ring_id?: string;
+  }
+
   /** Properties associated with a key response. */
   export interface Key {
     metadata?: CollectionMetadataOneOf;
@@ -5940,6 +6683,36 @@ namespace IbmKeyProtectApiV2 {
 
   /** ListCollectionMetadata. */
   export interface ListCollectionMetadata {
+  }
+
+  /** The base schema for listing kmip adapter. */
+  export interface ListKMIPAdapters {
+    metadata?: ListCollectionMetadata;
+    /** A collection of resources. */
+    resources?: KMIPAdapter[];
+  }
+
+  /** The base schema for listing kmip adapter with total count. */
+  export interface ListKMIPAdaptersWithTotalCount {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadataWithTotalCount;
+    /** A collection of resources. */
+    resources?: KMIPAdapter[];
+  }
+
+  /** The base schema for listing kmip client certificates in a kmip adapter. */
+  export interface ListKMIPClientCertificates {
+    metadata?: ListCollectionMetadata;
+    /** A collection of resources. */
+    resources?: KMIPClientCertificate[];
+  }
+
+  /** The base schema for listing kmip client certificates in a kmip adapter with total count. */
+  export interface ListKMIPPartialClientCertificatesWithTotalCount {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadataWithTotalCount;
+    /** A collection of resources. */
+    resources?: KMIPClientPartialCertificate[];
   }
 
   /** The base schema for listing key rings. */
@@ -6473,6 +7246,18 @@ namespace IbmKeyProtectApiV2 {
     metadata: CollectionMetadata;
     /** A collection of resources. */
     resources: GetMultipleKeyPoliciesResource[];
+  }
+
+  /** Properties that must be specified to profile_data when it is of native_1.0 KMIP adapter resource. */
+  export interface KMIPProfileDataBodyKMIPProfileDataNative extends KMIPProfileDataBody {
+    /** An ID that identifies the Customer Root Key(CRK) to be used. This CRK must exist in the same kms instance as
+     *  the adapter.
+     */
+    crk_id: string;
+    /** The unique identifier of the key ring to be used for creating standard keys in the kms instance. When this
+     *  is not specified, the `default` key ring will be used.
+     */
+    target_key_ring_id?: string;
   }
 
   /** Properties that are associated with the response body of an rewrap action. */
