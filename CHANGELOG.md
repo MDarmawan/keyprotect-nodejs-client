@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/IBM/keyprotect-nodejs-client/compare/v0.2.0...v0.2.1) (2024-01-23)
+
+
+### Bug Fixes
+
+* **build:** Regenerate the nodeJS sdk with the KMIP APIs ([#39](https://github.com/IBM/keyprotect-nodejs-client/issues/39)) ([3272b2d](https://github.com/IBM/keyprotect-nodejs-client/commit/3272b2d3a3bebf82c80e8e4cc40ef4458ebb8371))
+
 ## [0.1.7](https://github.com/IBM/keyprotect-nodejs-client/compare/v0.1.6...v0.1.7) (2023-02-09)
 
 
