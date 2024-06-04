@@ -20,13 +20,8 @@ const sdkCorePackage = require('ibm-cloud-sdk-core');
 const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
 const IbmKeyProtectApiV2 = require('../../dist/ibm-key-protect-api/v2');
 
-const {
-  getOptions,
-  checkUrlAndMethod,
-  checkMediaHeaders,
-  expectToBePromise,
-  checkUserHeader,
-} = unitTestUtils;
+const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise, checkUserHeader } =
+  unitTestUtils;
 
 const ibmKeyProtectApiServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
@@ -149,7 +144,9 @@ describe('IbmKeyProtectApiV2', () => {
           xKmsKeyRing,
         };
 
-        const getKeyCollectionMetadataResult = ibmKeyProtectApiService.getKeyCollectionMetadata(getKeyCollectionMetadataParams);
+        const getKeyCollectionMetadataResult = ibmKeyProtectApiService.getKeyCollectionMetadata(
+          getKeyCollectionMetadataParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getKeyCollectionMetadataResult);
@@ -455,7 +452,10 @@ describe('IbmKeyProtectApiV2', () => {
           xKmsKeyRing,
         };
 
-        const createKeyWithPoliciesOverridesResult = ibmKeyProtectApiService.createKeyWithPoliciesOverrides(createKeyWithPoliciesOverridesParams);
+        const createKeyWithPoliciesOverridesResult =
+          ibmKeyProtectApiService.createKeyWithPoliciesOverrides(
+            createKeyWithPoliciesOverridesParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(createKeyWithPoliciesOverridesResult);
@@ -506,7 +506,9 @@ describe('IbmKeyProtectApiV2', () => {
           },
         };
 
-        ibmKeyProtectApiService.createKeyWithPoliciesOverrides(createKeyWithPoliciesOverridesParams);
+        ibmKeyProtectApiService.createKeyWithPoliciesOverrides(
+          createKeyWithPoliciesOverridesParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1756,7 +1758,8 @@ describe('IbmKeyProtectApiV2', () => {
           xKmsKeyRing,
         };
 
-        const setKeyForDeletionResult = ibmKeyProtectApiService.setKeyForDeletion(setKeyForDeletionParams);
+        const setKeyForDeletionResult =
+          ibmKeyProtectApiService.setKeyForDeletion(setKeyForDeletionParams);
 
         // all methods should return a Promise
         expectToBePromise(setKeyForDeletionResult);
@@ -1766,7 +1769,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/keys/{id}/actions/setKeyForDeletion', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/keys/{id}/actions/setKeyForDeletion',
+          'POST'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1851,7 +1858,8 @@ describe('IbmKeyProtectApiV2', () => {
           xKmsKeyRing,
         };
 
-        const unsetKeyForDeletionResult = ibmKeyProtectApiService.unsetKeyForDeletion(unsetKeyForDeletionParams);
+        const unsetKeyForDeletionResult =
+          ibmKeyProtectApiService.unsetKeyForDeletion(unsetKeyForDeletionParams);
 
         // all methods should return a Promise
         expectToBePromise(unsetKeyForDeletionResult);
@@ -1861,7 +1869,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/keys/{id}/actions/unsetKeyForDeletion', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/keys/{id}/actions/unsetKeyForDeletion',
+          'POST'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2136,7 +2148,9 @@ describe('IbmKeyProtectApiV2', () => {
           xKmsKeyRing,
         };
 
-        const syncAssociatedResourcesResult = ibmKeyProtectApiService.syncAssociatedResources(syncAssociatedResourcesParams);
+        const syncAssociatedResourcesResult = ibmKeyProtectApiService.syncAssociatedResources(
+          syncAssociatedResourcesParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(syncAssociatedResourcesResult);
@@ -2488,7 +2502,8 @@ describe('IbmKeyProtectApiV2', () => {
           policy,
         };
 
-        const putInstancePolicyResult = ibmKeyProtectApiService.putInstancePolicy(putInstancePolicyParams);
+        const putInstancePolicyResult =
+          ibmKeyProtectApiService.putInstancePolicy(putInstancePolicyParams);
 
         // all methods should return a Promise
         expectToBePromise(putInstancePolicyResult);
@@ -2581,7 +2596,8 @@ describe('IbmKeyProtectApiV2', () => {
           policy,
         };
 
-        const getInstancePolicyResult = ibmKeyProtectApiService.getInstancePolicy(getInstancePolicyParams);
+        const getInstancePolicyResult =
+          ibmKeyProtectApiService.getInstancePolicy(getInstancePolicyParams);
 
         // all methods should return a Promise
         expectToBePromise(getInstancePolicyResult);
@@ -2669,7 +2685,8 @@ describe('IbmKeyProtectApiV2', () => {
           correlationId,
         };
 
-        const getAllowedIpPortResult = ibmKeyProtectApiService.getAllowedIpPort(getAllowedIpPortParams);
+        const getAllowedIpPortResult =
+          ibmKeyProtectApiService.getAllowedIpPort(getAllowedIpPortParams);
 
         // all methods should return a Promise
         expectToBePromise(getAllowedIpPortResult);
@@ -2762,7 +2779,8 @@ describe('IbmKeyProtectApiV2', () => {
           xKmsKeyRing,
         };
 
-        const postImportTokenResult = ibmKeyProtectApiService.postImportToken(postImportTokenParams);
+        const postImportTokenResult =
+          ibmKeyProtectApiService.postImportToken(postImportTokenParams);
 
         // all methods should return a Promise
         expectToBePromise(postImportTokenResult);
@@ -2951,7 +2969,8 @@ describe('IbmKeyProtectApiV2', () => {
       function __createRegistrationTest() {
         // Construct the params object for operation createRegistration
         const id = 'testString';
-        const urlEncodedResourceCrn = 'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
+        const urlEncodedResourceCrn =
+          'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
         const bluemixInstance = 'testString';
         const metadata = collectionMetadataModel;
         const resources = [createRegistrationResourceBodyModel];
@@ -2967,7 +2986,8 @@ describe('IbmKeyProtectApiV2', () => {
           xKmsKeyRing,
         };
 
-        const createRegistrationResult = ibmKeyProtectApiService.createRegistration(createRegistrationParams);
+        const createRegistrationResult =
+          ibmKeyProtectApiService.createRegistration(createRegistrationParams);
 
         // all methods should return a Promise
         expectToBePromise(createRegistrationResult);
@@ -2977,7 +2997,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -3008,7 +3032,8 @@ describe('IbmKeyProtectApiV2', () => {
       test('should prioritize user-given headers', () => {
         // parameters
         const id = 'testString';
-        const urlEncodedResourceCrn = 'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
+        const urlEncodedResourceCrn =
+          'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
         const bluemixInstance = 'testString';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
@@ -3073,7 +3098,8 @@ describe('IbmKeyProtectApiV2', () => {
       function __updateRegistrationTest() {
         // Construct the params object for operation updateRegistration
         const id = 'testString';
-        const urlEncodedResourceCrn = 'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
+        const urlEncodedResourceCrn =
+          'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
         const bluemixInstance = 'testString';
         const metadata = collectionMetadataModel;
         const resources = [modifiableRegistrationResourceBodyModel];
@@ -3089,7 +3115,8 @@ describe('IbmKeyProtectApiV2', () => {
           xKmsKeyRing,
         };
 
-        const updateRegistrationResult = ibmKeyProtectApiService.updateRegistration(updateRegistrationParams);
+        const updateRegistrationResult =
+          ibmKeyProtectApiService.updateRegistration(updateRegistrationParams);
 
         // all methods should return a Promise
         expectToBePromise(updateRegistrationResult);
@@ -3099,7 +3126,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}', 'PATCH');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}',
+          'PATCH'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -3130,7 +3161,8 @@ describe('IbmKeyProtectApiV2', () => {
       test('should prioritize user-given headers', () => {
         // parameters
         const id = 'testString';
-        const urlEncodedResourceCrn = 'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
+        const urlEncodedResourceCrn =
+          'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
         const bluemixInstance = 'testString';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
@@ -3195,7 +3227,8 @@ describe('IbmKeyProtectApiV2', () => {
       function __replaceRegistrationTest() {
         // Construct the params object for operation replaceRegistration
         const id = 'testString';
-        const urlEncodedResourceCrn = 'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
+        const urlEncodedResourceCrn =
+          'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
         const bluemixInstance = 'testString';
         const metadata = collectionMetadataModel;
         const resources = [replaceRegistrationResourceBodyModel];
@@ -3211,7 +3244,8 @@ describe('IbmKeyProtectApiV2', () => {
           xKmsKeyRing,
         };
 
-        const replaceRegistrationResult = ibmKeyProtectApiService.replaceRegistration(replaceRegistrationParams);
+        const replaceRegistrationResult =
+          ibmKeyProtectApiService.replaceRegistration(replaceRegistrationParams);
 
         // all methods should return a Promise
         expectToBePromise(replaceRegistrationResult);
@@ -3221,7 +3255,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}', 'PUT');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}',
+          'PUT'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -3252,7 +3290,8 @@ describe('IbmKeyProtectApiV2', () => {
       test('should prioritize user-given headers', () => {
         // parameters
         const id = 'testString';
-        const urlEncodedResourceCrn = 'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
+        const urlEncodedResourceCrn =
+          'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
         const bluemixInstance = 'testString';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
@@ -3301,7 +3340,8 @@ describe('IbmKeyProtectApiV2', () => {
       function __deleteRegistrationTest() {
         // Construct the params object for operation deleteRegistration
         const id = 'testString';
-        const urlEncodedResourceCrn = 'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
+        const urlEncodedResourceCrn =
+          'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
         const bluemixInstance = 'testString';
         const correlationId = 'testString';
         const xKmsKeyRing = 'testString';
@@ -3315,7 +3355,8 @@ describe('IbmKeyProtectApiV2', () => {
           prefer,
         };
 
-        const deleteRegistrationResult = ibmKeyProtectApiService.deleteRegistration(deleteRegistrationParams);
+        const deleteRegistrationResult =
+          ibmKeyProtectApiService.deleteRegistration(deleteRegistrationParams);
 
         // all methods should return a Promise
         expectToBePromise(deleteRegistrationResult);
@@ -3325,7 +3366,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}',
+          'DELETE'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -3355,7 +3400,8 @@ describe('IbmKeyProtectApiV2', () => {
       test('should prioritize user-given headers', () => {
         // parameters
         const id = 'testString';
-        const urlEncodedResourceCrn = 'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
+        const urlEncodedResourceCrn =
+          'crn%3av1%3abluemix%3apublic%3acloud-object-storage%3aglobal%3aa%2f00000000000000000000000000000000%3afeddecaf-0000-0000-0000-1234567890ab%3a%3abucket';
         const bluemixInstance = 'testString';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
@@ -3411,7 +3457,8 @@ describe('IbmKeyProtectApiV2', () => {
 
       // CloudResourceName
       const cloudResourceNameModel = {
-        resourceCrn: 'crn:v1:bluemix:public:cloud-object-storage:global:a/<account-id>:<service-instance>:bucket:<bucket-name>',
+        resourceCrn:
+          'crn:v1:bluemix:public:cloud-object-storage:global:a/<account-id>:<service-instance>:bucket:<bucket-name>',
       };
 
       // RegistrationActionOneOfDeactivateRegistration
@@ -3439,7 +3486,9 @@ describe('IbmKeyProtectApiV2', () => {
           prefer,
         };
 
-        const actionOnRegistrationResult = ibmKeyProtectApiService.actionOnRegistration(actionOnRegistrationParams);
+        const actionOnRegistrationResult = ibmKeyProtectApiService.actionOnRegistration(
+          actionOnRegistrationParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(actionOnRegistrationResult);
@@ -3536,7 +3585,8 @@ describe('IbmKeyProtectApiV2', () => {
         const xKmsKeyRing = 'testString';
         const limit = 200;
         const offset = 0;
-        const urlEncodedResourceCrnQuery = 'crn%3Av1%3Abluemix%3Apublic%3Adatabases-for-postgresql%3Aus-south%3Aa%2F00000000000000000000000000000000%3Afeddecaf-0000-0000-0000-1234567890ab%3A*%3A*';
+        const urlEncodedResourceCrnQuery =
+          'crn%3Av1%3Abluemix%3Apublic%3Adatabases-for-postgresql%3Aus-south%3Aa%2F00000000000000000000000000000000%3Afeddecaf-0000-0000-0000-1234567890ab%3A*%3A*';
         const preventKeyDeletion = true;
         const totalCount = true;
         const getRegistrationsParams = {
@@ -3551,7 +3601,8 @@ describe('IbmKeyProtectApiV2', () => {
           totalCount,
         };
 
-        const getRegistrationsResult = ibmKeyProtectApiService.getRegistrations(getRegistrationsParams);
+        const getRegistrationsResult =
+          ibmKeyProtectApiService.getRegistrations(getRegistrationsParams);
 
         // all methods should return a Promise
         expectToBePromise(getRegistrationsResult);
@@ -3570,7 +3621,9 @@ describe('IbmKeyProtectApiV2', () => {
         checkUserHeader(createRequestMock, 'X-Kms-Key-Ring', xKmsKeyRing);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.offset).toEqual(offset);
-        expect(mockRequestOptions.qs.urlEncodedResourceCRNQuery).toEqual(urlEncodedResourceCrnQuery);
+        expect(mockRequestOptions.qs.urlEncodedResourceCRNQuery).toEqual(
+          urlEncodedResourceCrnQuery
+        );
         expect(mockRequestOptions.qs.preventKeyDeletion).toEqual(preventKeyDeletion);
         expect(mockRequestOptions.qs.totalCount).toEqual(totalCount);
         expect(mockRequestOptions.path.id).toEqual(id);
@@ -3643,7 +3696,8 @@ describe('IbmKeyProtectApiV2', () => {
         const bluemixInstance = 'testString';
         const correlationId = 'testString';
         const xKmsKeyRing = 'testString';
-        const urlEncodedResourceCrnQuery = 'crn%3Av1%3Abluemix%3Apublic%3Adatabases-for-postgresql%3Aus-south%3Aa%2F00000000000000000000000000000000%3Afeddecaf-0000-0000-0000-1234567890ab%3A*%3A*';
+        const urlEncodedResourceCrnQuery =
+          'crn%3Av1%3Abluemix%3Apublic%3Adatabases-for-postgresql%3Aus-south%3Aa%2F00000000000000000000000000000000%3Afeddecaf-0000-0000-0000-1234567890ab%3A*%3A*';
         const limit = 200;
         const offset = 0;
         const preventKeyDeletion = true;
@@ -3659,7 +3713,9 @@ describe('IbmKeyProtectApiV2', () => {
           totalCount,
         };
 
-        const getRegistrationsAllKeysResult = ibmKeyProtectApiService.getRegistrationsAllKeys(getRegistrationsAllKeysParams);
+        const getRegistrationsAllKeysResult = ibmKeyProtectApiService.getRegistrationsAllKeys(
+          getRegistrationsAllKeysParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getRegistrationsAllKeysResult);
@@ -3676,7 +3732,9 @@ describe('IbmKeyProtectApiV2', () => {
         checkUserHeader(createRequestMock, 'Bluemix-Instance', bluemixInstance);
         checkUserHeader(createRequestMock, 'Correlation-Id', correlationId);
         checkUserHeader(createRequestMock, 'X-Kms-Key-Ring', xKmsKeyRing);
-        expect(mockRequestOptions.qs.urlEncodedResourceCRNQuery).toEqual(urlEncodedResourceCrnQuery);
+        expect(mockRequestOptions.qs.urlEncodedResourceCRNQuery).toEqual(
+          urlEncodedResourceCrnQuery
+        );
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.offset).toEqual(offset);
         expect(mockRequestOptions.qs.preventKeyDeletion).toEqual(preventKeyDeletion);
@@ -3756,7 +3814,8 @@ describe('IbmKeyProtectApiV2', () => {
           xKmsKeyRing,
         };
 
-        const eventAcknowledgeResult = ibmKeyProtectApiService.eventAcknowledge(eventAcknowledgeParams);
+        const eventAcknowledgeResult =
+          ibmKeyProtectApiService.eventAcknowledge(eventAcknowledgeParams);
 
         // all methods should return a Promise
         expectToBePromise(eventAcknowledgeResult);
@@ -4336,7 +4395,8 @@ describe('IbmKeyProtectApiV2', () => {
           totalCount,
         };
 
-        const getKmipAdaptersResult = ibmKeyProtectApiService.getKmipAdapters(getKmipAdaptersParams);
+        const getKmipAdaptersResult =
+          ibmKeyProtectApiService.getKmipAdapters(getKmipAdaptersParams);
 
         // all methods should return a Promise
         expectToBePromise(getKmipAdaptersResult);
@@ -4451,7 +4511,8 @@ describe('IbmKeyProtectApiV2', () => {
           correlationId,
         };
 
-        const createKmipAdapterResult = ibmKeyProtectApiService.createKmipAdapter(createKmipAdapterParams);
+        const createKmipAdapterResult =
+          ibmKeyProtectApiService.createKmipAdapter(createKmipAdapterParams);
 
         // all methods should return a Promise
         expectToBePromise(createKmipAdapterResult);
@@ -4638,7 +4699,8 @@ describe('IbmKeyProtectApiV2', () => {
           correlationId,
         };
 
-        const deleteKmipAdapterResult = ibmKeyProtectApiService.deleteKmipAdapter(deleteKmipAdapterParams);
+        const deleteKmipAdapterResult =
+          ibmKeyProtectApiService.deleteKmipAdapter(deleteKmipAdapterParams);
 
         // all methods should return a Promise
         expectToBePromise(deleteKmipAdapterResult);
@@ -4748,7 +4810,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters/{adapter_id}/kmip_objects', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/kmip_objects',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -4846,7 +4912,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters/{adapter_id}/kmip_objects/{id}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/kmip_objects/{id}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -4933,7 +5003,8 @@ describe('IbmKeyProtectApiV2', () => {
           correlationId,
         };
 
-        const deleteKmipObjectResult = ibmKeyProtectApiService.deleteKmipObject(deleteKmipObjectParams);
+        const deleteKmipObjectResult =
+          ibmKeyProtectApiService.deleteKmipObject(deleteKmipObjectParams);
 
         // all methods should return a Promise
         expectToBePromise(deleteKmipObjectResult);
@@ -4943,7 +5014,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters/{adapter_id}/kmip_objects/{id}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/kmip_objects/{id}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -5034,7 +5109,9 @@ describe('IbmKeyProtectApiV2', () => {
           correlationId,
         };
 
-        const getKmipClientCertificatesResult = ibmKeyProtectApiService.getKmipClientCertificates(getKmipClientCertificatesParams);
+        const getKmipClientCertificatesResult = ibmKeyProtectApiService.getKmipClientCertificates(
+          getKmipClientCertificatesParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getKmipClientCertificatesResult);
@@ -5044,7 +5121,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters/{adapter_id}/certificates', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/certificates',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -5147,7 +5228,9 @@ describe('IbmKeyProtectApiV2', () => {
           correlationId,
         };
 
-        const addKmipClientCertificateResult = ibmKeyProtectApiService.addKmipClientCertificate(addKmipClientCertificateParams);
+        const addKmipClientCertificateResult = ibmKeyProtectApiService.addKmipClientCertificate(
+          addKmipClientCertificateParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(addKmipClientCertificateResult);
@@ -5157,7 +5240,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters/{adapter_id}/certificates', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/certificates',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -5247,7 +5334,9 @@ describe('IbmKeyProtectApiV2', () => {
           correlationId,
         };
 
-        const getKmipClientCertificateResult = ibmKeyProtectApiService.getKmipClientCertificate(getKmipClientCertificateParams);
+        const getKmipClientCertificateResult = ibmKeyProtectApiService.getKmipClientCertificate(
+          getKmipClientCertificateParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getKmipClientCertificateResult);
@@ -5257,7 +5346,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters/{adapter_id}/certificates/{id}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/certificates/{id}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -5344,7 +5437,8 @@ describe('IbmKeyProtectApiV2', () => {
           correlationId,
         };
 
-        const deleteKmipClientCertificateResult = ibmKeyProtectApiService.deleteKmipClientCertificate(deleteKmipClientCertificateParams);
+        const deleteKmipClientCertificateResult =
+          ibmKeyProtectApiService.deleteKmipClientCertificate(deleteKmipClientCertificateParams);
 
         // all methods should return a Promise
         expectToBePromise(deleteKmipClientCertificateResult);
@@ -5354,7 +5448,11 @@ describe('IbmKeyProtectApiV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v2/kmip_adapters/{adapter_id}/certificates/{id}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v2/kmip_adapters/{adapter_id}/certificates/{id}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);

@@ -23,11 +23,11 @@ import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
   Authenticator,
   BaseService,
-  SDKLogger,
-  UserOptions,
   constructServiceUrl,
   getAuthenticatorFromEnvironment,
   getNewLogger,
+  SDKLogger,
+  UserOptions,
   validateParams,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
@@ -51,10 +51,6 @@ class IbmKeyProtectApiV2 extends BaseService {
 
   static PARAMETERIZED_SERVICE_URL: string = 'https://{region}.kms.cloud.ibm.com';
 
-  private static defaultUrlVariables = new Map([
-    ['region', 'us-south'],
-  ]);
-
   /**
    * Constructs a service URL by formatting the parameterized service URL.
    *
@@ -77,7 +73,7 @@ class IbmKeyProtectApiV2 extends BaseService {
     );
   }
 
-  /*************************
+  /** ***********************
    * Factory method
    ************************/
 
@@ -108,6 +104,10 @@ class IbmKeyProtectApiV2 extends BaseService {
     return service;
   }
 
+  private static defaultUrlVariables = new Map([
+    ['region', 'us-south'],
+  ]);
+
   /**
    * Construct a IbmKeyProtectApiV2 object.
    *
@@ -129,7 +129,7 @@ class IbmKeyProtectApiV2 extends BaseService {
     }
   }
 
-  /*************************
+  /** ***********************
    * keys
    ************************/
 
@@ -1170,7 +1170,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /*************************
+  /** ***********************
    * keyActions
    ************************/
 
@@ -1724,7 +1724,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /*************************
+  /** ***********************
    * policies
    ************************/
 
@@ -2034,7 +2034,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /*************************
+  /** ***********************
    * importTokens
    ************************/
 
@@ -2163,7 +2163,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /*************************
+  /** ***********************
    * registrations
    ************************/
 
@@ -2736,7 +2736,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /*************************
+  /** ***********************
    * keyEvents
    ************************/
 
@@ -2798,7 +2798,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /*************************
+  /** ***********************
    * aliases
    ************************/
 
@@ -2932,7 +2932,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /*************************
+  /** ***********************
    * keyRings
    ************************/
 
@@ -3118,7 +3118,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /*************************
+  /** ***********************
    * kMIPAdapters
    ************************/
 
@@ -3790,7 +3790,7 @@ class IbmKeyProtectApiV2 extends BaseService {
   }
 }
 
-/*************************
+/** ***********************
  * interfaces
  ************************/
 
@@ -3814,7 +3814,7 @@ namespace IbmKeyProtectApiV2 {
     [key: string]: any;
   }
 
-  /*************************
+  /** ***********************
    * request interfaces
    ************************/
 
@@ -5272,7 +5272,7 @@ namespace IbmKeyProtectApiV2 {
     headers?: OutgoingHttpHeaders;
   }
 
-  /*************************
+  /** ***********************
    * model interfaces
    ************************/
 
