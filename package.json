@@ -64,8 +64,6 @@
     "prettier": "^3.2.4",
     "semantic-release": "^23.0.0",
     "tsc-publish": "^0.5.2",
-    "tslint": "^5.20.1",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.12.0"
   },
