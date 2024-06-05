@@ -23,11 +23,11 @@ import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
   Authenticator,
   BaseService,
+  SDKLogger,
+  UserOptions,
   constructServiceUrl,
   getAuthenticatorFromEnvironment,
   getNewLogger,
-  SDKLogger,
-  UserOptions,
   validateParams,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
@@ -51,6 +51,10 @@ class IbmKeyProtectApiV2 extends BaseService {
 
   static PARAMETERIZED_SERVICE_URL: string = 'https://{region}.kms.cloud.ibm.com';
 
+  private static defaultUrlVariables = new Map([
+    ['region', 'us-south'],
+  ]);
+
   /**
    * Constructs a service URL by formatting the parameterized service URL.
    *
@@ -73,7 +77,7 @@ class IbmKeyProtectApiV2 extends BaseService {
     );
   }
 
-  /** ***********************
+  /*************************
    * Factory method
    ************************/
 
@@ -104,10 +108,6 @@ class IbmKeyProtectApiV2 extends BaseService {
     return service;
   }
 
-  private static defaultUrlVariables = new Map([
-    ['region', 'us-south'],
-  ]);
-
   /**
    * Construct a IbmKeyProtectApiV2 object.
    *
@@ -129,7 +129,7 @@ class IbmKeyProtectApiV2 extends BaseService {
     }
   }
 
-  /** ***********************
+  /*************************
    * keys
    ************************/
 
@@ -1170,7 +1170,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /** ***********************
+  /*************************
    * keyActions
    ************************/
 
@@ -1724,7 +1724,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /** ***********************
+  /*************************
    * policies
    ************************/
 
@@ -2034,7 +2034,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /** ***********************
+  /*************************
    * importTokens
    ************************/
 
@@ -2163,385 +2163,9 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /** ***********************
+  /*************************
    * registrations
    ************************/
-
-  /**
-   * Create a registration.
-   *
-   * **Service to service calls only.** Creates a registration between a root key and a cloud resource, such as a Cloud
-   * Object Storage bucket. The key is identified by its ID, and the cloud resource is identified by its Cloud Resource
-   * Name (CRN).
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID or alias that uniquely identifies the key.
-   * @param {string} params.urlEncodedResourceCrn - The URL encoded [Cloud Resource
-   * Name](/docs/account?topic=account-crn) (CRN) that uniquely identifies the cloud resource. At minimum, provide a CRN
-   * that includes the `service-instance` segment.
-   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
-   * instance.
-   * @param {CollectionMetadata} [params.metadata] - The metadata that describes the resource array.
-   * @param {CreateRegistrationResourceBody[]} [params.resources] - A collection of resources.
-   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
-   * @param {string} [params.xKmsKeyRing] - The ID of the key ring that the specified key is a part of. When the  header
-   * is not specified, Key Protect will perform a key ring lookup. For  a more optimized request, specify the key ring
-   * on every call. The key ring ID of keys that are created without an `X-Kms-Key-Ring` header is: `default`.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.Registration>>}
-   */
-  public createRegistration(
-    params: IbmKeyProtectApiV2.CreateRegistrationParams
-  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.Registration>> {
-    const _params = { ...params };
-    const _requiredParams = ['id', 'urlEncodedResourceCrn', 'bluemixInstance'];
-    const _validParams = ['id', 'urlEncodedResourceCrn', 'bluemixInstance', 'metadata', 'resources', 'correlationId', 'xKmsKeyRing', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const body = {
-      'metadata': _params.metadata,
-      'resources': _params.resources,
-    };
-
-    const path = {
-      'id': _params.id,
-      'urlEncodedResourceCRN': _params.urlEncodedResourceCrn,
-    };
-
-    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'createRegistration');
-
-    const parameters = {
-      options: {
-        url: '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}',
-        method: 'POST',
-        body,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Bluemix-Instance': _params.bluemixInstance,
-            'Correlation-Id': _params.correlationId,
-            'X-Kms-Key-Ring': _params.xKmsKeyRing,
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Update a registration.
-   *
-   * **Service to service calls only.** Updates an existing registration based on the properties that you specify.
-   *
-   * When you call `PATCH /registrations`, Key Protect updates only the properties that you specify in the request
-   * entity-body. To replace the registration, use `PUT /registrations`. The `preventKeyDeletion` policy should  only be
-   * set if a WORM policy must be satisfied (as would be needed for this example:
-   * https://www.ibm.com/docs/en/spectrum-scale/5.0.1?topic=ics-how-write-once-read-many-worm-storage-works).  Do not
-   * set this policy by default.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID or alias that uniquely identifies the key.
-   * @param {string} params.urlEncodedResourceCrn - The URL encoded [Cloud Resource
-   * Name](/docs/account?topic=account-crn) (CRN) that uniquely identifies the cloud resource. At minimum, provide a CRN
-   * that includes the `service-instance` segment.
-   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
-   * instance.
-   * @param {CollectionMetadata} [params.metadata] - The metadata that describes the resource array.
-   * @param {ModifiableRegistrationResourceBody[]} [params.resources] - A collection of resources.
-   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
-   * @param {string} [params.xKmsKeyRing] - The ID of the key ring that the specified key is a part of. When the  header
-   * is not specified, Key Protect will perform a key ring lookup. For  a more optimized request, specify the key ring
-   * on every call. The key ring ID of keys that are created without an `X-Kms-Key-Ring` header is: `default`.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.Registration>>}
-   */
-  public updateRegistration(
-    params: IbmKeyProtectApiV2.UpdateRegistrationParams
-  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.Registration>> {
-    const _params = { ...params };
-    const _requiredParams = ['id', 'urlEncodedResourceCrn', 'bluemixInstance'];
-    const _validParams = ['id', 'urlEncodedResourceCrn', 'bluemixInstance', 'metadata', 'resources', 'correlationId', 'xKmsKeyRing', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const body = {
-      'metadata': _params.metadata,
-      'resources': _params.resources,
-    };
-
-    const path = {
-      'id': _params.id,
-      'urlEncodedResourceCRN': _params.urlEncodedResourceCrn,
-    };
-
-    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'updateRegistration');
-
-    const parameters = {
-      options: {
-        url: '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}',
-        method: 'PATCH',
-        body,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Bluemix-Instance': _params.bluemixInstance,
-            'Correlation-Id': _params.correlationId,
-            'X-Kms-Key-Ring': _params.xKmsKeyRing,
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Replace a registration.
-   *
-   * **Service to service calls only.** Replace an existing registration between a root key and a cloud resource. The
-   * key is identified by its ID, and the cloud resource is identified by its Cloud Resource Name
-   * (CRN).
-   *
-   * When you call `PUT /registrations`, Key Protect replaces the existing registration with the properties that you
-   * provide in the request entity-body.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID or alias that uniquely identifies the key.
-   * @param {string} params.urlEncodedResourceCrn - The URL encoded [Cloud Resource
-   * Name](/docs/account?topic=account-crn) (CRN) that uniquely identifies the cloud resource. At minimum, provide a CRN
-   * that includes the `service-instance` segment.
-   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
-   * instance.
-   * @param {CollectionMetadata} [params.metadata] - The metadata that describes the resource array.
-   * @param {ReplaceRegistrationResourceBody[]} [params.resources] - A collection of resources.
-   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
-   * @param {string} [params.xKmsKeyRing] - The ID of the key ring that the specified key is a part of. When the  header
-   * is not specified, Key Protect will perform a key ring lookup. For  a more optimized request, specify the key ring
-   * on every call. The key ring ID of keys that are created without an `X-Kms-Key-Ring` header is: `default`.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.Registration>>}
-   */
-  public replaceRegistration(
-    params: IbmKeyProtectApiV2.ReplaceRegistrationParams
-  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.Registration>> {
-    const _params = { ...params };
-    const _requiredParams = ['id', 'urlEncodedResourceCrn', 'bluemixInstance'];
-    const _validParams = ['id', 'urlEncodedResourceCrn', 'bluemixInstance', 'metadata', 'resources', 'correlationId', 'xKmsKeyRing', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const body = {
-      'metadata': _params.metadata,
-      'resources': _params.resources,
-    };
-
-    const path = {
-      'id': _params.id,
-      'urlEncodedResourceCRN': _params.urlEncodedResourceCrn,
-    };
-
-    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'replaceRegistration');
-
-    const parameters = {
-      options: {
-        url: '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}',
-        method: 'PUT',
-        body,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Bluemix-Instance': _params.bluemixInstance,
-            'Correlation-Id': _params.correlationId,
-            'X-Kms-Key-Ring': _params.xKmsKeyRing,
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Delete a registration.
-   *
-   * **Service to service calls only.** Deletes an existing registration between a root key and a cloud resource.
-   *
-   * This action permanently removes the registration from the Key Protect database.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID or alias that uniquely identifies the key.
-   * @param {string} params.urlEncodedResourceCrn - The URL encoded [Cloud Resource
-   * Name](/docs/account?topic=account-crn) (CRN) that uniquely identifies the cloud resource. At minimum, provide a CRN
-   * that includes the `service-instance` segment.
-   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
-   * instance.
-   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
-   * @param {string} [params.xKmsKeyRing] - The ID of the key ring that the specified key is a part of. When the  header
-   * is not specified, Key Protect will perform a key ring lookup. For  a more optimized request, specify the key ring
-   * on every call. The key ring ID of keys that are created without an `X-Kms-Key-Ring` header is: `default`.
-   * @param {string} [params.prefer] - Alters server behavior for POST or DELETE operations. A header with
-   * `return=minimal` causes the service to return only the key identifier as metadata. A header containing
-   * `return=representation` returns both the key material and metadata in the response entity-body. If the key has been
-   * designated as a root key, the system cannot return the key material.
-   * **Note:** During POST operations, Key Protect may not immediately return the key material due to key generation
-   * time. To retrieve the key material, you can perform a subsequent `GET /keys/{id}` request.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.Registration>>}
-   */
-  public deleteRegistration(
-    params: IbmKeyProtectApiV2.DeleteRegistrationParams
-  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.Registration>> {
-    const _params = { ...params };
-    const _requiredParams = ['id', 'urlEncodedResourceCrn', 'bluemixInstance'];
-    const _validParams = ['id', 'urlEncodedResourceCrn', 'bluemixInstance', 'correlationId', 'xKmsKeyRing', 'prefer', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const path = {
-      'id': _params.id,
-      'urlEncodedResourceCRN': _params.urlEncodedResourceCrn,
-    };
-
-    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteRegistration');
-
-    const parameters = {
-      options: {
-        url: '/api/v2/keys/{id}/registrations/{urlEncodedResourceCRN}',
-        method: 'DELETE',
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-            'Bluemix-Instance': _params.bluemixInstance,
-            'Correlation-Id': _params.correlationId,
-            'X-Kms-Key-Ring': _params.xKmsKeyRing,
-            'Prefer': _params.prefer,
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Deactivate a registration.
-   *
-   * **Deprecated.** Invokes an action, such as a deactivate operation, on a registration with the specified key ID and
-   * CRN.
-   *
-   * When a customer deletes a root key that is associated with a cloud resource, the registration between the resources
-   * moves to the
-   * `Suspended` state. As an integrated service, use
-   * `POST /keys/{id}/registrations?action=deactivate` to acknowledge the deletion. This action moves the registration
-   * to a `Deactivated` state.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies the key.
-   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
-   * instance.
-   * @param {string} params.action - The action to perform on the specified key.
-   * @param {RegistrationActionOneOf} params.registrationDeactivateBody - The base request for registration actions.
-   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
-   * @param {string} [params.xKmsKeyRing] - The ID of the key ring that the specified key is a part of. When the  header
-   * is not specified, Key Protect will perform a key ring lookup. For  a more optimized request, specify the key ring
-   * on every call. The key ring ID of keys that are created without an `X-Kms-Key-Ring` header is: `default`.
-   * @param {string} [params.prefer] - Alters server behavior for POST or DELETE operations. A header with
-   * `return=minimal` causes the service to return only the key identifier as metadata. A header containing
-   * `return=representation` returns both the key material and metadata in the response entity-body. If the key has been
-   * designated as a root key, the system cannot return the key material.
-   * **Note:** During POST operations, Key Protect may not immediately return the key material due to key generation
-   * time. To retrieve the key material, you can perform a subsequent `GET /keys/{id}` request.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.DeactivateRegistration>>}
-   * @deprecated this method is deprecated and may be removed in a future release
-   */
-  public actionOnRegistration(
-    params: IbmKeyProtectApiV2.ActionOnRegistrationParams
-  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.DeactivateRegistration>> {
-    IbmKeyProtectApiV2._logger.warn('A deprecated operation has been invoked: actionOnRegistration');
-    const _params = { ...params };
-    const _requiredParams = ['id', 'bluemixInstance', 'action', 'registrationDeactivateBody'];
-    const _validParams = ['id', 'bluemixInstance', 'action', 'registrationDeactivateBody', 'correlationId', 'xKmsKeyRing', 'prefer', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const body = _params.registrationDeactivateBody;
-    const query = {
-      'action': _params.action,
-    };
-
-    const path = {
-      'id': _params.id,
-    };
-
-    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'actionOnRegistration');
-
-    const parameters = {
-      options: {
-        url: '/api/v2/keys/{id}/registrations',
-        method: 'POST',
-        body,
-        qs: query,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Bluemix-Instance': _params.bluemixInstance,
-            'Correlation-Id': _params.correlationId,
-            'X-Kms-Key-Ring': _params.xKmsKeyRing,
-            'Prefer': _params.prefer,
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
 
   /**
    * List registrations for a key.
@@ -2736,69 +2360,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /** ***********************
-   * keyEvents
-   ************************/
-
-  /**
-   * Acknowledge key events.
-   *
-   * **Service to service calls only.** Acknowledges a key lifecycle event.
-   *
-   * When a customer performs an action on a root key, Key Protect uses Hyperwarp to notify the cloud services that are
-   * registered with the key. To acknowledge the Hyperwarp event, registered services must call
-   * `POST /api/v2/event_ack`.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.bluemixInstance - The IBM Cloud instance ID that identifies your Key Protect service
-   * instance.
-   * @param {NodeJS.ReadableStream | Buffer} params.eventAcknowledge - The base request for acknowledging a key action
-   * events.
-   * @param {string} [params.correlationId] - The v4 UUID used to correlate and track transactions.
-   * @param {string} [params.xKmsKeyRing] - The ID of the key ring that the specified key belongs to. When the header is
-   * not specified,  Key Protect will perform a key ring lookup. For a more optimized request,  specify the key ring on
-   * every call. The key ring ID of keys that are created without an  `X-Kms-Key-Ring` header is: `default`.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.EmptyObject>>}
-   */
-  public eventAcknowledge(
-    params: IbmKeyProtectApiV2.EventAcknowledgeParams
-  ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.EmptyObject>> {
-    const _params = { ...params };
-    const _requiredParams = ['bluemixInstance', 'eventAcknowledge'];
-    const _validParams = ['bluemixInstance', 'eventAcknowledge', 'correlationId', 'xKmsKeyRing', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const body = _params.eventAcknowledge;
-    const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'eventAcknowledge');
-
-    const parameters = {
-      options: {
-        url: '/api/v2/event_ack',
-        method: 'POST',
-        body,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Content-Type': 'application/vnd.ibm.kms.event_acknowledge+json',
-            'Bluemix-Instance': _params.bluemixInstance,
-            'Correlation-Id': _params.correlationId,
-            'X-Kms-Key-Ring': _params.xKmsKeyRing,
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-  /** ***********************
+  /*************************
    * aliases
    ************************/
 
@@ -2932,7 +2494,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /** ***********************
+  /*************************
    * keyRings
    ************************/
 
@@ -3118,7 +2680,7 @@ class IbmKeyProtectApiV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /** ***********************
+  /*************************
    * kMIPAdapters
    ************************/
 
@@ -3790,7 +3352,7 @@ class IbmKeyProtectApiV2 extends BaseService {
   }
 }
 
-/** ***********************
+/*************************
  * interfaces
  ************************/
 
@@ -3814,7 +3376,7 @@ namespace IbmKeyProtectApiV2 {
     [key: string]: any;
   }
 
-  /** ***********************
+  /*************************
    * request interfaces
    ************************/
 
@@ -4695,156 +4257,6 @@ namespace IbmKeyProtectApiV2 {
     headers?: OutgoingHttpHeaders;
   }
 
-  /** Parameters for the `createRegistration` operation. */
-  export interface CreateRegistrationParams {
-    /** The v4 UUID or alias that uniquely identifies the key. */
-    id: string;
-    /** The URL encoded [Cloud Resource Name](/docs/account?topic=account-crn) (CRN) that uniquely identifies the
-     *  cloud resource. At minimum, provide a CRN that includes the `service-instance` segment.
-     */
-    urlEncodedResourceCrn: string;
-    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
-    bluemixInstance: string;
-    /** The metadata that describes the resource array. */
-    metadata?: CollectionMetadata;
-    /** A collection of resources. */
-    resources?: CreateRegistrationResourceBody[];
-    /** The v4 UUID used to correlate and track transactions. */
-    correlationId?: string;
-    /** The ID of the key ring that the specified key is a part of. When the  header is not specified, Key Protect
-     *  will perform a key ring lookup. For  a more optimized request, specify the key ring on every call. The key ring
-     *  ID of keys that are created without an `X-Kms-Key-Ring` header is: `default`.
-     */
-    xKmsKeyRing?: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Parameters for the `updateRegistration` operation. */
-  export interface UpdateRegistrationParams {
-    /** The v4 UUID or alias that uniquely identifies the key. */
-    id: string;
-    /** The URL encoded [Cloud Resource Name](/docs/account?topic=account-crn) (CRN) that uniquely identifies the
-     *  cloud resource. At minimum, provide a CRN that includes the `service-instance` segment.
-     */
-    urlEncodedResourceCrn: string;
-    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
-    bluemixInstance: string;
-    /** The metadata that describes the resource array. */
-    metadata?: CollectionMetadata;
-    /** A collection of resources. */
-    resources?: ModifiableRegistrationResourceBody[];
-    /** The v4 UUID used to correlate and track transactions. */
-    correlationId?: string;
-    /** The ID of the key ring that the specified key is a part of. When the  header is not specified, Key Protect
-     *  will perform a key ring lookup. For  a more optimized request, specify the key ring on every call. The key ring
-     *  ID of keys that are created without an `X-Kms-Key-Ring` header is: `default`.
-     */
-    xKmsKeyRing?: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Parameters for the `replaceRegistration` operation. */
-  export interface ReplaceRegistrationParams {
-    /** The v4 UUID or alias that uniquely identifies the key. */
-    id: string;
-    /** The URL encoded [Cloud Resource Name](/docs/account?topic=account-crn) (CRN) that uniquely identifies the
-     *  cloud resource. At minimum, provide a CRN that includes the `service-instance` segment.
-     */
-    urlEncodedResourceCrn: string;
-    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
-    bluemixInstance: string;
-    /** The metadata that describes the resource array. */
-    metadata?: CollectionMetadata;
-    /** A collection of resources. */
-    resources?: ReplaceRegistrationResourceBody[];
-    /** The v4 UUID used to correlate and track transactions. */
-    correlationId?: string;
-    /** The ID of the key ring that the specified key is a part of. When the  header is not specified, Key Protect
-     *  will perform a key ring lookup. For  a more optimized request, specify the key ring on every call. The key ring
-     *  ID of keys that are created without an `X-Kms-Key-Ring` header is: `default`.
-     */
-    xKmsKeyRing?: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Parameters for the `deleteRegistration` operation. */
-  export interface DeleteRegistrationParams {
-    /** The v4 UUID or alias that uniquely identifies the key. */
-    id: string;
-    /** The URL encoded [Cloud Resource Name](/docs/account?topic=account-crn) (CRN) that uniquely identifies the
-     *  cloud resource. At minimum, provide a CRN that includes the `service-instance` segment.
-     */
-    urlEncodedResourceCrn: string;
-    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
-    bluemixInstance: string;
-    /** The v4 UUID used to correlate and track transactions. */
-    correlationId?: string;
-    /** The ID of the key ring that the specified key is a part of. When the  header is not specified, Key Protect
-     *  will perform a key ring lookup. For  a more optimized request, specify the key ring on every call. The key ring
-     *  ID of keys that are created without an `X-Kms-Key-Ring` header is: `default`.
-     */
-    xKmsKeyRing?: string;
-    /** Alters server behavior for POST or DELETE operations. A header with `return=minimal` causes the service to
-     *  return only the key identifier as metadata. A header containing `return=representation` returns both the key
-     *  material and metadata in the response entity-body. If the key has been designated as a root key, the system
-     *  cannot return the key material.
-     *  **Note:** During POST operations, Key Protect may not immediately return the key material due to key generation
-     *  time. To retrieve the key material, you can perform a subsequent `GET /keys/{id}` request.
-     */
-    prefer?: DeleteRegistrationConstants.Prefer | string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `deleteRegistration` operation. */
-  export namespace DeleteRegistrationConstants {
-    /** Alters server behavior for POST or DELETE operations. A header with `return=minimal` causes the service to return only the key identifier as metadata. A header containing `return=representation` returns both the key material and metadata in the response entity-body. If the key has been designated as a root key, the system cannot return the key material. **Note:** During POST operations, Key Protect may not immediately return the key material due to key generation time. To retrieve the key material, you can perform a subsequent `GET /keys/{id}` request. */
-    export enum Prefer {
-      RETURN_REPRESENTATION = 'return=representation',
-      RETURN_MINIMAL = 'return=minimal',
-    }
-  }
-
-  /** Parameters for the `actionOnRegistration` operation. */
-  export interface ActionOnRegistrationParams {
-    /** The v4 UUID that uniquely identifies the key. */
-    id: string;
-    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
-    bluemixInstance: string;
-    /** The action to perform on the specified key. */
-    action: ActionOnRegistrationConstants.Action | string;
-    /** The base request for registration actions. */
-    registrationDeactivateBody: RegistrationActionOneOf;
-    /** The v4 UUID used to correlate and track transactions. */
-    correlationId?: string;
-    /** The ID of the key ring that the specified key is a part of. When the  header is not specified, Key Protect
-     *  will perform a key ring lookup. For  a more optimized request, specify the key ring on every call. The key ring
-     *  ID of keys that are created without an `X-Kms-Key-Ring` header is: `default`.
-     */
-    xKmsKeyRing?: string;
-    /** Alters server behavior for POST or DELETE operations. A header with `return=minimal` causes the service to
-     *  return only the key identifier as metadata. A header containing `return=representation` returns both the key
-     *  material and metadata in the response entity-body. If the key has been designated as a root key, the system
-     *  cannot return the key material.
-     *  **Note:** During POST operations, Key Protect may not immediately return the key material due to key generation
-     *  time. To retrieve the key material, you can perform a subsequent `GET /keys/{id}` request.
-     */
-    prefer?: ActionOnRegistrationConstants.Prefer | string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `actionOnRegistration` operation. */
-  export namespace ActionOnRegistrationConstants {
-    /** The action to perform on the specified key. */
-    export enum Action {
-      DEACTIVATE = 'deactivate',
-    }
-    /** Alters server behavior for POST or DELETE operations. A header with `return=minimal` causes the service to return only the key identifier as metadata. A header containing `return=representation` returns both the key material and metadata in the response entity-body. If the key has been designated as a root key, the system cannot return the key material. **Note:** During POST operations, Key Protect may not immediately return the key material due to key generation time. To retrieve the key material, you can perform a subsequent `GET /keys/{id}` request. */
-    export enum Prefer {
-      RETURN_REPRESENTATION = 'return=representation',
-      RETURN_MINIMAL = 'return=minimal',
-    }
-  }
-
   /** Parameters for the `getRegistrations` operation. */
   export interface GetRegistrationsParams {
     /** The v4 UUID that uniquely identifies the key. */
@@ -4949,22 +4361,6 @@ namespace IbmKeyProtectApiV2 {
      *  **Usage:** To return the `totalCount` value for use with pagination, use `../registrations?totalCount=true`.
      */
     totalCount?: boolean;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Parameters for the `eventAcknowledge` operation. */
-  export interface EventAcknowledgeParams {
-    /** The IBM Cloud instance ID that identifies your Key Protect service instance. */
-    bluemixInstance: string;
-    /** The base request for acknowledging a key action events. */
-    eventAcknowledge: NodeJS.ReadableStream | Buffer;
-    /** The v4 UUID used to correlate and track transactions. */
-    correlationId?: string;
-    /** The ID of the key ring that the specified key belongs to. When the header is not specified,  Key Protect
-     *  will perform a key ring lookup. For a more optimized request,  specify the key ring on every call. The key ring
-     *  ID of keys that are created without an  `X-Kms-Key-Ring` header is: `default`.
-     */
-    xKmsKeyRing?: string;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -5272,7 +4668,7 @@ namespace IbmKeyProtectApiV2 {
     headers?: OutgoingHttpHeaders;
   }
 
-  /** ***********************
+  /*************************
    * model interfaces
    ************************/
 
@@ -5293,14 +4689,6 @@ namespace IbmKeyProtectApiV2 {
      *  instructions on how to use the `private_endpoint_port` value.
      */
     private_endpoint_port?: number;
-  }
-
-  /** The object that contains information about the Cloud Resource Name. */
-  export interface CloudResourceName {
-    /** The [Cloud Resource Name](/docs/account?topic=account-crn) (CRN) that uniquely identifies your cloud
-     *  resources.
-     */
-    resourceCrn?: string;
   }
 
   /** The metadata that describes the resource array. */
@@ -5448,32 +4836,6 @@ namespace IbmKeyProtectApiV2 {
      *  alphanumeric and cannot contain spaces or special characters other than `-` or `_`. The name cannot be a UUID.
      */
     name?: string;
-  }
-
-  /** The base schema for the resource in the body of a create registration. */
-  export interface CreateRegistrationResourceBody {
-    /** A boolean that determines whether Key Protect must prevent deletion of a root key. This policy should only
-     *  be set if a WORM policy must be satisfied. If set to `true`, Key Protect prevents deletion of the specified root
-     *  key and its associated protected resources. The system prevents the deletion of any key that has at least one
-     *  registration where `preventKeyDeletion` is `true`.
-     */
-    preventKeyDeletion?: boolean;
-    /** A text field that cloud services can use to store external metadata about the registration. This field is
-     *  exposed to customers when they review registered resources using GET /registrations.
-     */
-    description?: string;
-    /** A text field that cloud services can use to store internal metadata about the registration. This field is
-     *  not exposed to customers and is visible only with IBM Cloud service to service calls.
-     */
-    registrationMetadata?: string;
-  }
-
-  /** The base schema for the request body of deactivate registration. */
-  export interface DeactivateRegistration {
-    /** The metadata that describes the resource array. */
-    metadata?: CollectionMetadata;
-    /** A collection of resources. */
-    resources?: CloudResourceName[];
   }
 
   /** The base schema for deleting keys. */
@@ -6719,28 +6081,6 @@ namespace IbmKeyProtectApiV2 {
     enabled: boolean;
   }
 
-  /** The base schema for the resource in the body of a create registration. */
-  export interface ModifiableRegistrationResourceBody {
-    /** A boolean that determines whether Key Protect must prevent deletion of a root key. This policy should only
-     *  be set if a WORM policy must be satisfied. If set to `true`, Key Protect prevents deletion of the specified root
-     *  key and its associated protected resources. The system prevents the deletion of any key that has at least one
-     *  registration where `preventKeyDeletion` is `true`.
-     */
-    preventKeyDeletion?: boolean;
-    /** A text field that cloud services can use to store external metadata about the registration. This field is
-     *  exposed to customers when they review registered resources using GET /registrations.
-     */
-    description?: string;
-    /** A text field that cloud services can use to store internal metadata about the registration. This field is
-     *  not exposed to customers and is visible only with IBM Cloud service to service calls.
-     */
-    registrationMetadata?: string;
-    /** The ID of the key version that you want to register. This must be a version that is newer than the
-     *  registered key version.
-     */
-    keyVersionId?: string;
-  }
-
   /** The base schema for patch key response body. */
   export interface PatchKeyResponseBody {
     /** The metadata that describes the resource array. */
@@ -6755,18 +6095,6 @@ namespace IbmKeyProtectApiV2 {
     metadata: CollectionMetadata;
     /** A collection of resources. */
     resources: KeyFullRepresentation[];
-  }
-
-  /** Properties associated with a registration response. */
-  export interface Registration {
-    /** The metadata that describes the resource array. */
-    metadata?: CollectionMetadata;
-    /** A collection of resources. */
-    resources?: RegistrationResource[];
-  }
-
-  /** RegistrationActionOneOf. */
-  export interface RegistrationActionOneOf {
   }
 
   /** Properties associated with a registration. */
@@ -6805,28 +6133,6 @@ namespace IbmKeyProtectApiV2 {
     metadata?: CollectionMetadataWithTotalCount;
     /** A collection of resources. */
     resources?: RegistrationResource[];
-  }
-
-  /** The base schema for the resource in the body of a create registration. */
-  export interface ReplaceRegistrationResourceBody {
-    /** A boolean that determines whether Key Protect must prevent deletion of a root key. This policy should only
-     *  be set if a WORM policy must be satisfied. If set to `true`, Key Protect prevents deletion of the specified root
-     *  key and its associated protected resources. The system prevents the deletion of any key that has at least one
-     *  registration where `preventKeyDeletion` is `true`.
-     */
-    preventKeyDeletion: boolean;
-    /** A text field that cloud services can use to store external metadata about the registration. This field is
-     *  exposed to customers when they review registered resources using GET /registrations.
-     */
-    description: string;
-    /** A text field that cloud services can use to store internal metadata about the registration. This field is
-     *  not exposed to customers and is visible only with IBM Cloud service to service calls.
-     */
-    registrationMetadata: string;
-    /** The ID of the key version that you want to register. This must be a version that is newer than the
-     *  registered key version.
-     */
-    keyVersionId: string;
   }
 
   /** Properties that are associated with the response body of an rewrap action. */
@@ -7387,14 +6693,6 @@ namespace IbmKeyProtectApiV2 {
         APPLICATION_VND_IBM_KMS_KMIP_OBJECT_JSON = 'application/vnd.ibm.kms.kmip_object+json',
       }
     }
-  }
-
-  /** The base schema for the request body of deactivate registration. */
-  export interface RegistrationActionOneOfDeactivateRegistration extends RegistrationActionOneOf {
-    /** The metadata that describes the resource array. */
-    metadata?: CollectionMetadata;
-    /** A collection of resources. */
-    resources?: CloudResourceName[];
   }
 
   /** Properties that are associated with setting an instance level allowed IP policy. */
