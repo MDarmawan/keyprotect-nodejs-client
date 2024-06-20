@@ -3638,12 +3638,14 @@ describe('IbmKeyProtectApiV2', () => {
         const limit = 100;
         const offset = 0;
         const totalCount = true;
+        const crkId = 'feddecaf-0000-0000-0000-1234567890ab';
         const getKmipAdaptersParams = {
           bluemixInstance,
           correlationId,
           limit,
           offset,
           totalCount,
+          crkId,
         };
 
         const getKmipAdaptersResult = ibmKeyProtectApiService.getKmipAdapters(getKmipAdaptersParams);
@@ -3665,6 +3667,7 @@ describe('IbmKeyProtectApiV2', () => {
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.offset).toEqual(offset);
         expect(mockRequestOptions.qs.totalCount).toEqual(totalCount);
+        expect(mockRequestOptions.qs.crk_id).toEqual(crkId);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {

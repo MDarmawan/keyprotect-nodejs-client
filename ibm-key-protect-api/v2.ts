@@ -2707,6 +2707,9 @@ class IbmKeyProtectApiV2 extends BaseService {
    * pagination. The `totalCount` value returned specifies the total number of kmip adapters that match the request,
    * disregarding limit and offset. The default is set to false. **Usage:** To return the `totalCount` value for use
    * with pagination, use `../kmip_adapters?totalCount=true`.
+   * @param {string} [params.crkId] - The root key ID(`crk_id`) in the `profile_data` to filter on. This field is
+   * currently only applicable to profile `"native_1.0"`. It will only return adapters with profile_data that contains
+   * this field. Example usage `../kmip_adapters?crk_id=feddecaf-0000-0000-0000-1234567890ab`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPAdaptersWithTotalCount>>}
    */
@@ -2715,7 +2718,7 @@ class IbmKeyProtectApiV2 extends BaseService {
   ): Promise<IbmKeyProtectApiV2.Response<IbmKeyProtectApiV2.ListKMIPAdaptersWithTotalCount>> {
     const _params = { ...params };
     const _requiredParams = ['bluemixInstance'];
-    const _validParams = ['bluemixInstance', 'correlationId', 'limit', 'offset', 'totalCount', 'headers'];
+    const _validParams = ['bluemixInstance', 'correlationId', 'limit', 'offset', 'totalCount', 'crkId', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2725,6 +2728,7 @@ class IbmKeyProtectApiV2 extends BaseService {
       'limit': _params.limit,
       'offset': _params.offset,
       'totalCount': _params.totalCount,
+      'crk_id': _params.crkId,
     };
 
     const sdkHeaders = getSdkHeaders(IbmKeyProtectApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getKmipAdapters');
@@ -4498,6 +4502,11 @@ namespace IbmKeyProtectApiV2 {
      *  `../kmip_adapters?totalCount=true`.
      */
     totalCount?: boolean;
+    /** The root key ID(`crk_id`) in the `profile_data` to filter on. This field is currently only applicable to
+     *  profile `"native_1.0"`. It will only return adapters with profile_data that contains this field. Example usage
+     *  `../kmip_adapters?crk_id=feddecaf-0000-0000-0000-1234567890ab`.
+     */
+    crkId?: string;
     headers?: OutgoingHttpHeaders;
   }
 
