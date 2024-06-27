@@ -33,7 +33,7 @@
     "access": "public"
   },
   "engines": {
-    "node": "^20.8.1"
+    "node": ">20.8.1"
   },
   "dependencies": {
     "@ibm-cloud/platform-services": "^0.49.0",
