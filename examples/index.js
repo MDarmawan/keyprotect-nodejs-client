@@ -21,10 +21,6 @@ const keyProtectClient = new KeyProtectV2({
     serviceUrl: envConfigs.serviceUrl,
 })
 
-app.get('/', function (req, res) {
-    res.sendFile('./home.html')
-})
-
 app.get('/keys', async function (req, res) {
     let response
 

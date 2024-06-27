@@ -1,4 +1,3 @@
-# Rules from: /Users/mdarmawan/Code/keyprotect-nodejs-client/.gitignore
 ### Specific to this repository ###
 # tsc outputs
 lib/*.js
